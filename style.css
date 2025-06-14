@@ -1,128 +1,126 @@
-/* style.css */
-body {
-  background-color: #004D9D;
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-}
+<!-- INICIO LANDING EXPERIENCIAL -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Método Retorno Seguro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      background: radial-gradient(ellipse at center, #001F3F 0%, #000000 100%), url('https://assets.codepen.io/14737734/starfield-dark.gif') repeat;
+      background-size: cover;
+      background-attachment: fixed;
+    }
 
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 40px 20px;
-}
+    header.hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: url('https://assets.codepen.io/14737734/cyberbg.jpg') no-repeat center center / cover;
+      padding: 60px 20px;
+      position: relative;
+    }
+    header.hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1;
+    }
+    header.hero > * {
+      position: relative;
+      z-index: 2;
+    }
+    header.hero h1 {
+      font-size: 3.5rem;
+      text-shadow: 0 0 15px #87CEFA;
+      margin-bottom: 1rem;
+    }
+    header.hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+    }
+    .btn-cta {
+      margin-top: 30px;
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #FFD700, #2ECC71);
+      color: #2f2f2f;
+      text-decoration: none;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+      transition: transform 0.3s ease;
+    }
+    .btn-cta:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+<header class="hero" id="hero">
+  <h1>🎾 ¿Lo das todo en la pista… y aún así acabas arrastrándote?</h1>
+  <p>Si sientes que el cansancio te gana, las molestias no desaparecen después de un partido y ya no recuperas como antes, esto es para ti.</p>
+  <img src="https://assets.codepen.io/14737734/Portada+ebook.png" alt="Portada del ebook" style="max-width: 300px; margin: 30px auto; box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); border-radius: 20px;">
+  <a href="#problema-raiz" class="btn-cta">Descúbrelo aquí</a>
+</header>
+<!-- Fin del bloque Hero limpio y actualizado -->
 
-.section {
-  padding: 60px 0;
-  border-bottom: 1px solid #87CEFA;
-}
+<!-- Lottie Clay Dust Cursor -->
+<div id="clay-lottie" style="position: fixed; pointer-events: none; z-index: 999999; width: 100px; height: 100px;"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
+<script>
+  // Cursor animado tipo tierra batida
+  const clayContainer = document.getElementById('clay-lottie');
+  const clayAnimation = lottie.loadAnimation({
+    container: clayContainer,
+    renderer: 'svg',
+    loop: false,
+    autoplay: false,
+    path: 'https://assets.codepen.io/14737734/Mc0L1kY8xt.json'
+  });
 
-h1, h2, h3 {
-  color: #FFD700;
-  text-align: center;
-  margin-bottom: 20px;
-}
+  document.addEventListener('mousemove', e => {
+    clayContainer.style.left = `${e.clientX - 50}px`;
+    clayContainer.style.top = `${e.clientY - 50}px`;
+    clayAnimation.stop();
+    clayAnimation.playSegments([0, 30], true);
+  });
 
-p, li {
-  color: white;
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
+  // ScrollSpy para mapa lateral con emotes en círculo
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('#sidebar-nav ul li');
 
-ul {
-  padding-left: 1.2em;
-}
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navItems.forEach(li => {
+          li.classList.remove('active');
+          const link = li.querySelector('a');
+          if (link.getAttribute('href') === `#${id}`) {
+            li.classList.add('active');
+          }
+        });
+      }
+    });
+  }, {
+    threshold: 0.6
+  });
 
-ol {
-  padding-left: 1.5em;
-  color: white;
-}
-
-.img-3d {
-  max-width: 100%;
-  margin: 40px 0;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.price-stack {
-  display: inline-flex;
-  align-items: flex-end;
-  gap: 1rem;
-  margin: 30px 0;
-  justify-content: center;
-}
-
-.price-old {
-  font-weight: 700;
-  font-size: 3rem;
-  color: red;
-  text-decoration: line-through;
-}
-
-.price-new {
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: green;
-}
-
-.btn-primary {
-  display: inline-block;
-  background-color: #2ecc71;
-  color: #fff;
-  padding: 15px 30px;
-  font-weight: bold;
-  border-radius: 12px;
-  text-decoration: none;
-  font-size: 1.1rem;
-  margin-top: 30px;
-  transition: background 0.3s;
-}
-
-.btn-primary:hover {
-  background-color: #28b463;
-}
-
-#sidebar-nav {
-  position: fixed;
-  top: 50%;
-  left: 20px;
-  transform: translateY(-50%);
-  z-index: 10000;
-}
-
-#sidebar-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#sidebar-nav li {
-  margin: 10px 0;
-}
-
-#sidebar-nav a {
-  text-decoration: none;
-  font-size: 1.5rem;
-  background: #FFD700;
-  color: #2F2F2F;
-  padding: 8px 12px;
-  border-radius: 8px;
-  display: block;
-  transition: all 0.3s ease;
-}
-
-#sidebar-nav a.active {
-  background: #2ECC71;
-  color: white;
-  font-weight: bold;
-}
-
-.clay-dust-lottie {
-  pointer-events: none;
-  position: fixed;
-  width: 120px;
-  height: 120px;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-}
+  sections.forEach(section => observer.observe(section));
+</script>
+</body>
+</html>
