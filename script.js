@@ -2,7 +2,7 @@
 <div id="clay-lottie" style="position: fixed; pointer-events: none; z-index: 999999; width: 100px; height: 100px;"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie.min.js"></script>
 <script>
-  // Cursor animado tipo tierra batida
+  // 1. Cursor animado tipo tierra batida
   const clayContainer = document.getElementById('clay-lottie');
   const clayAnimation = lottie.loadAnimation({
     container: clayContainer,
@@ -19,11 +19,11 @@
     clayAnimation.playSegments([0, 30], true);
   });
 
-  // ScrollSpy para mapa lateral con emotes en círculo
+  // 2. ScrollSpy para mapa lateral con emotes en círculo
   const sections = document.querySelectorAll('section[id]');
   const navItems = document.querySelectorAll('#sidebar-nav ul li');
 
-  const observer = new IntersectionObserver((entries) => {
+  const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id');
@@ -39,6 +39,16 @@
   }, {
     threshold: 0.6
   });
+  sections.forEach(section => scrollObserver.observe(section));
 
-  sections.forEach(section => observer.observe(section));
+  // 3. Animación de aparición para secciones e imágenes
+  const fadeElements = document.querySelectorAll('.fade-in, .fade-img');
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+  fadeElements.forEach(el => fadeObserver.observe(el));
 </script>
